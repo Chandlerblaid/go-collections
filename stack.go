@@ -1,8 +1,10 @@
 package go_collections
 
 const (
-	MINFILL float32 = 0.1
-	MAXFILL float32 = 0.8
+	MINFILL   float32 = 0.1
+	MAXFILL   float32 = 0.9
+	FILLRATIO float32 = 0.8
+	MINCAP    int     = 10
 )
 
 type Stack struct {
@@ -13,21 +15,48 @@ type Stack struct {
 	minCapacity  int
 }
 
-func NewStack(slice []interface{}, minCapacity int, fillRatio, maxFillPrct, minFillPrct float32) Stack {
-	if minFillPrct >= maxFillPrct {
-		minFillPrct = MINFILL
-		maxFillPrct = MAXFILL
+type StackOptionFunc func(*Stack) error
+
+func SetMinFillPrct(p float32) StackOptionFunc {
+	return func(s *Stack) error {
+		s.minFillRatio = p
+		return nil
+	}
+}
+
+func SetMaxFillPrct(p float32) StackOptionFunc {
+	return func(s *Stack) error {
+		s.maxFillRatio = p
+		return nil
+	}
+}
+
+func SetMinCapacity(cap int) StackOptionFunc {
+	return func(s *Stack) error {
+		s.minCapacity = cap
+		return nil
+	}
+}
+
+func NewStack(slice []interface{}, opts ...StackOptionFunc) Stack {
+	if slice == nil {
+		slice = []interface{}{}
 	}
 
 	ret := Stack{
 		list:         slice,
-		minCapacity:  minCapacity,
-		fillRatio:    fillRatio,
-		minFillRatio: minFillPrct,
-		maxFillRatio: maxFillPrct,
+		minCapacity:  MINCAP,
+		fillRatio:    FILLRATIO,
+		minFillRatio: MINFILL,
+		maxFillRatio: MAXFILL,
 	}
 
-	//if len(slice) <= len(slice)+int(float32(len(slice))*fillRatio*maxFillPrct) {
+	for _, opt := range opts {
+		if err := opt(&ret); err != nil {
+			return Stack{}
+		}
+	}
+
 	ret.rightsize()
 
 	return ret
