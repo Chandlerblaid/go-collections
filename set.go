@@ -3,6 +3,9 @@ package go_collections
 type Set map[string]interface{}
 
 func NewSet(list []string) Set {
+	if list == nil {
+		return Set{}
+	}
 	s := make(Set, len(list))
 	for _, el := range list {
 		s[el] = nil
