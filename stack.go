@@ -24,6 +24,13 @@ func SetMinFillPrct(p float32) StackOptionFunc {
 	}
 }
 
+func SetFillRatio(p float32) StackOptionFunc {
+	return func(s *Stack) error {
+		s.fillRatio = p
+		return nil
+	}
+}
+
 func SetMaxFillPrct(p float32) StackOptionFunc {
 	return func(s *Stack) error {
 		s.maxFillRatio = p

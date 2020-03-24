@@ -97,3 +97,27 @@ func TestSet_ToArray(t *testing.T) {
 		})
 	}
 }
+
+func TestSet_AddAll(t *testing.T) {
+	tests := []struct {
+		name string
+		s    Set
+		el   []interface{}
+	}{
+		{
+			name: "happy",
+			s:    Set{"initial": nil},
+			el:   []interface{}{"hi", "bye", "ok"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.s.AddAll(tt.el)
+			for _, e := range tt.el {
+				if !tt.s.Contains(e) {
+					t.Fatalf("Set should contain %v", e)
+				}
+			}
+		})
+	}
+}

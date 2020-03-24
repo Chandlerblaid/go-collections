@@ -37,6 +37,12 @@ func (s *Set) Add(el interface{}) {
 	(*s)[el] = nil
 }
 
+func (s *Set) AddAll(el []interface{}) {
+	for _, e := range el {
+		(*s)[e] = nil
+	}
+}
+
 func (s *Set) Remove(el interface{}) {
 	delete(*s, el)
 }
