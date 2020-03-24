@@ -1,8 +1,8 @@
 package go_collections
 
-type Set map[interface{}]interface{}
+type Set map[string]interface{}
 
-func NewSet(list []interface{}) Set {
+func NewSet(list []string) Set {
 	s := make(Set, len(list))
 	for _, el := range list {
 		s[el] = nil
@@ -18,31 +18,37 @@ func (s Set) Empty() bool {
 	return len(s) == 0
 }
 
-func (s Set) Contains(el interface{}) bool {
+func (s Set) Contains(el string) bool {
 	_, exists := s[el]
 	return exists
 }
 
-func (s Set) ToArray() []interface{} {
-	array := make([]interface{}, s.Size())
-	var i int
-	for el, _ := range s {
+func (s Set) ToArray() []string {
+	array := make([]string, s.Size())
+	i := 0
+	for el := range s {
 		array[i] = el
 		i++
 	}
 	return array
 }
 
-func (s *Set) Add(el interface{}) {
+func (s *Set) Add(el string) {
 	(*s)[el] = nil
 }
 
-func (s *Set) AddAll(el []interface{}) {
-	for _, e := range el {
-		(*s)[e] = nil
+func (s *Set) AddAll(el ...string) {
+	for _, listE := range el {
+		s.Add(listE)
 	}
 }
 
-func (s *Set) Remove(el interface{}) {
+func (s *Set) Merge(other Set) {
+	for k := range other {
+		s.Add(k)
+	}
+}
+
+func (s *Set) Remove(el string) {
 	delete(*s, el)
 }
