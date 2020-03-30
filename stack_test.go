@@ -46,8 +46,8 @@ func Test_stack_Pop(t *testing.T) {
 	exp := []interface{}{1, 2, 3, 4}
 	if got := y.Pop(); !reflect.DeepEqual(got, p) {
 		t.Errorf("Pop() = %v, want %v", got, p)
-	} else if !reflect.DeepEqual(exp, y.list) {
-		t.Errorf("after Pop() = %v, want %v", exp, y)
+	} else if !reflect.DeepEqual(exp, []interface{}(y.list)) {
+		t.Errorf("after Pop() = %v, want %v", exp, y.list)
 	} else if y.Size() != 4 {
 		t.Errorf("y.Size() = %v, want %v", y.Size(), 4)
 	}
@@ -68,8 +68,8 @@ func Test_stack_Put(t *testing.T) {
 	p := 5
 	y.list = []interface{}{1, 2, 3, 4}
 	exp := []interface{}{1, 2, 3, 4, p}
-	if y.Put(p); !reflect.DeepEqual(exp, y) {
-		t.Errorf("Pop() = %v, want %v", exp, p)
+	if y.Put(p); !reflect.DeepEqual(exp, []interface{}(y.list)) {
+		t.Errorf("Pop() = %v, want %v", exp, y.list)
 	} else if y.Size() != p {
 		t.Errorf("y.Size() = %v, want %v", y.Size(), 4)
 	}

@@ -5,9 +5,7 @@ import (
 	"testing"
 )
 
-func TestSet_Add(t *testing.T) {
-
-}
+func TestSet_Add(t *testing.T) {}
 
 func TestSet_Contains(t *testing.T) {
 	tests := []struct {
@@ -98,7 +96,7 @@ func TestSet_ToArray(t *testing.T) {
 func TestSet_AddAll(t *testing.T) {
 	tests := []struct {
 		name string
-		s    Set
+		s    *Set
 		el   []string
 	}{
 		{

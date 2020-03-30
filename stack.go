@@ -95,7 +95,7 @@ func (s *Stack) rightsize() {
 		}
 
 		copy(array, s.list)
-		s.list = array[:s.list.Size()-1]
+		s.list = array[:s.list.Size()]
 	}
 }
 

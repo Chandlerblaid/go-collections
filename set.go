@@ -2,26 +2,32 @@ package go_collections
 
 type Set map[string]interface{}
 
-func NewSet(list []string) Set {
+func NewSet(list []string) *Set {
 	if list == nil {
-		return Set{}
+		return new(Set)
 	}
 	s := make(Set, len(list))
 	for _, el := range list {
 		s[el] = nil
 	}
-	return s
+	return &s
 }
 
 func (s Set) Size() int {
+	if s == nil {
+		return 0
+	}
 	return len(s)
 }
 
 func (s Set) Empty() bool {
-	return len(s) == 0
+	return s == nil || len(s) == 0
 }
 
 func (s Set) Contains(el string) bool {
+	if s == nil {
+		return false
+	}
 	_, exists := s[el]
 	return exists
 }
@@ -37,6 +43,9 @@ func (s Set) ToArray() []string {
 }
 
 func (s *Set) Add(el string) {
+	if s == nil || *s == nil {
+		*s = make(map[string]interface{})
+	}
 	(*s)[el] = nil
 }
 

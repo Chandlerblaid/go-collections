@@ -1,7 +1,6 @@
 package go_collections
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -22,5 +21,4 @@ func TestShuffle(t *testing.T) {
 	if !reflect.DeepEqual(ogLen, len(l)) {
 		t.Errorf("length, want: %v, got: %v", ogLen, len(l))
 	}
-	fmt.Printf("got: %v", l)
 }
